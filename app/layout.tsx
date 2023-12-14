@@ -16,9 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-pink-100 via-purple-200 to-indigo-300`}
-      >
+      <body className={`${inter.className} bg-slate-100`}>
         {children}
       </body>
     </html>
