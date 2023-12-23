@@ -2,14 +2,21 @@ import { Button } from "@/components/ui/button";
 import React, { FormEvent, useRef, useState } from "react";
 import InputWithLabel from "./InputWithLabel";
 import Select from "./Select";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { useRouter } from "next/navigation";
+import { SignUpInputType } from "@/typings";
+import { CreateNewUser } from "@/axios.config";
 
 function Signup() {
-  const [inputs, setInputs] = useState({});
+  const [inputs, setInputs] = useState({
+    name: "",
+    email: "",
+    password: "",
+    gender: "",
+    day: "",
+    month: "",
+    year: "",
+  });
 
   const days = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -33,12 +40,26 @@ function Signup() {
 
   const gender = ["male", "female", "other"];
   const years = getArray(1950, 2023);
-  const ref: any = useRef();
+  // const ref: any = useRef();
+  const router = useRouter();
+
+  const doSubmit = async (inputs: SignUpInputType) => {
+    const response = await CreateNewUser(inputs);
+
+    if (response.status === 200) {
+      document.cookie = `accessToken=${response.headers["x-auth-token"]}`;
+      router.push("/profile");
+      return response;
+    }
+
+    return response;
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    doSubmit(inputs);
 
-    console.log(inputs);
+    // here we can put more validations
   };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,21 +84,21 @@ function Signup() {
             label="Name"
             type="text"
             placeholder="Enter your full name"
-            onInputChange={onInputChange}
+            onChange={onInputChange}
           />
           <InputWithLabel
             name="email"
             label="Email"
             type="text"
             placeholder="Enter your email address"
-            onInputChange={onInputChange}
+            onChange={onInputChange}
           />
           <InputWithLabel
             name="password"
             label="Password"
             type="password"
             placeholder="Enter your password"
-            onInputChange={onInputChange}
+            onChange={onInputChange}
           />
           <div className="flex justify-between items-center">
             <div>

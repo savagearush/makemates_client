@@ -1,20 +1,64 @@
 "use client";
 
-import React, { FormEvent, useState } from "react";
+import React, { use, useState } from "react";
 import Image from "next/image";
 import Signup from "./_component/signup";
 import { Poppins } from "next/font/google";
 import InputWithLabel from "./_component/InputWithLabel";
 import { Button } from "@/components/ui/button";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
-const poppins = Poppins({ weight: ["400", "500"], subsets: ["latin"] });
+interface LoginInputType {
+  email: string;
+  password: string;
+}
 
 function Login() {
-  const [inputs, setInputs] = useState({});
+  const [inputs, setInputs] = useState({
+    email: "",
+    password: "",
+  });
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const doSubmit = async (inputs: LoginInputType) => {
+    const response = await axios.post(
+      "http://localhost:5000/user/login",
+      inputs
+    );
+
+    if (response.status === 200) {
+      document.cookie = `accessToken=${response.headers["x-auth-token"]}`;
+      router.push("/profile");
+      return response;
+    }
+
+    return response;
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(inputs);
+    console.log("Working");
+
+    // showing alert to user
+    // toast.promise(
+    //   doSubmit(inputs),
+    //   {
+    //     loading: "Loading",
+    //     success: (response) => `${response.data}`,
+    //     error: ({ response }) => `${response.data}`,
+    //   },
+    //   {
+    //     success: {
+    //       duration: 5000,
+    //     },
+    //     style: {
+    //       minWidth: "250px",
+    //       font: "bold 12px verdana",
+    //     },
+    //   }
+    // );
   };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,21 +86,21 @@ function Login() {
             label="Email"
             placeholder="Enter your email address"
             type="text"
-            onInputChange={onInputChange}
+            onChange={onInputChange}
           />
           <InputWithLabel
             name="password"
             label="Password"
             placeholder="Enter your password"
             type="password"
-            onInputChange={onInputChange}
+            onChange={onInputChange}
           />
           <Button type="submit" className="bg-green-500">
             Login
           </Button>
         </form>
         <p>
-          Don't have account ? <Signup />{" "}
+          Don't have account ? <Signup />
         </p>
       </div>
     </>
