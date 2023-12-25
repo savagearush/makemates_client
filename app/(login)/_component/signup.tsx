@@ -1,13 +1,15 @@
 import { Button } from "@/components/ui/button";
-import React, { FormEvent, useRef, useState } from "react";
+import React, { FormEvent, useContext, useRef, useState } from "react";
 import InputWithLabel from "./InputWithLabel";
 import Select from "./Select";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useRouter } from "next/navigation";
-import { SignUpInputType } from "@/typings";
+import { AuthContextType, SignUpInputType } from "@/typings";
 import { CreateNewUser } from "@/axios.config";
+import { AuthContext } from "@/context/AuthContext";
 
 function Signup() {
+  const { signup } = useContext<AuthContextType | null>(AuthContext);
   const [inputs, setInputs] = useState({
     name: "",
     email: "",
@@ -40,26 +42,10 @@ function Signup() {
 
   const gender = ["male", "female", "other"];
   const years = getArray(1950, 2023);
-  // const ref: any = useRef();
-  const router = useRouter();
 
-  const doSubmit = async (inputs: SignUpInputType) => {
-    const response = await CreateNewUser(inputs);
-
-    if (response.status === 200) {
-      document.cookie = `accessToken=${response.headers["x-auth-token"]}`;
-      router.push("/profile");
-      return response;
-    }
-
-    return response;
-  };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSignUpSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    doSubmit(inputs);
-
-    // here we can put more validations
+    signup(inputs);
   };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,7 +64,7 @@ function Signup() {
           <h3 className="font-semibold text-xl">Sign Up Now</h3>
           <p>Your mates are waiting...</p>
         </div>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        <form onSubmit={handleSignUpSubmit} className="flex flex-col gap-3">
           <InputWithLabel
             name="name"
             label="Name"

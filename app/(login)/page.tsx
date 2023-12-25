@@ -1,64 +1,27 @@
 "use client";
 
-import React, { use, useState } from "react";
+import React, { use, useContext, useState } from "react";
 import Image from "next/image";
 import Signup from "./_component/signup";
-import { Poppins } from "next/font/google";
 import InputWithLabel from "./_component/InputWithLabel";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import axios from "axios";
-
-interface LoginInputType {
-  email: string;
-  password: string;
-}
+import { AuthContextType, LoginInputType } from "@/typings";
+import { AuthContext } from "@/context/AuthContext";
 
 function Login() {
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
   });
-  const router = useRouter();
 
-  const doSubmit = async (inputs: LoginInputType) => {
-    const response = await axios.post(
-      "http://localhost:5000/user/login",
-      inputs
-    );
-
-    if (response.status === 200) {
-      document.cookie = `accessToken=${response.headers["x-auth-token"]}`;
-      router.push("/profile");
-      return response;
-    }
-
-    return response;
-  };
+  const { login }: any = useContext<AuthContextType | null>(AuthContext);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Working");
-
+    login(inputs);
     // showing alert to user
-    // toast.promise(
-    //   doSubmit(inputs),
-    //   {
-    //     loading: "Loading",
-    //     success: (response) => `${response.data}`,
-    //     error: ({ response }) => `${response.data}`,
-    //   },
-    //   {
-    //     success: {
-    //       duration: 5000,
-    //     },
-    //     style: {
-    //       minWidth: "250px",
-    //       font: "bold 12px verdana",
-    //     },
-    //   }
-    // );
+    
   };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,7 +29,7 @@ function Login() {
   };
 
   return (
-    <>
+    <div>
       <Image
         src="/logo-light.png"
         width="240"
@@ -74,7 +37,7 @@ function Login() {
         className="absolute top-5 left-5"
         alt="logo"
       />
-      <div className="flex flex-col items-center justify-center bg-white/80 gap-4 px-20 py-12 shadow-lg rounded-lg">
+      <div className="flex flex-col items-center h-screen justify-center bg-white/80 gap-4 px-20 py-12 shadow-lg rounded-lg">
         <h3 className="text-xl">Join us now</h3>
         <form
           onSubmit={handleSubmit}
@@ -103,7 +66,7 @@ function Login() {
           Don't have account ? <Signup />
         </p>
       </div>
-    </>
+    </div>
   );
 }
 
