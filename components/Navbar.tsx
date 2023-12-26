@@ -33,7 +33,7 @@ function Navbar() {
   ];
 
   return (
-    <div className="mt-4 w-[1000px] shadow-[0px_2px_15px_0px_#001C43] h-[50px] px-4 rounded-full  text-white bg-[#003789] flex items-center justify-center gap-32">
+    <div className="z-[99999] w-[1200px] shadow-[0px_2px_15px_0px_#001C43] h-[50px] px-2 rounded-full  text-white bg-[#003789] flex items-center justify-center gap-32">
       <div className="flex-1 flex items-center justify-center">
         <Image src="/logo-dark.png" width="120" height="30" alt="logo" />
       </div>

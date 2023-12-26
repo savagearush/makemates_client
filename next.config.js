@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+// (https://placehold.co/400x400?text=Image)
+
+const nextConfig = {
+
+}
 
 module.exports = nextConfig

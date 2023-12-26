@@ -11,8 +11,10 @@ function FeedLayout({ children }: { children: React.ReactNode }) {
     <div
       className={`${poppins.className} flex flex-col items-center h-screen `}
     >
-      <Navbar />
-      <div>{children}</div>
+      <div className="z-[99999] bg-slate-100 fixed top-0 h-[100px] flex items-center justify-center w-full">
+        <Navbar />
+      </div>
+      <div className="mt-[75px]">{children}</div>
     </div>
   );
 }
