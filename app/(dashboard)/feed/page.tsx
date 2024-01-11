@@ -12,6 +12,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 function Page() {
 
+
+  
   const leftSidebarNavigations = [
     {
       name: "Mate",
