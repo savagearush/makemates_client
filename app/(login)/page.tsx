@@ -21,7 +21,7 @@ function Login() {
     e.preventDefault();
     login(inputs);
     // showing alert to user
-    
+
   };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

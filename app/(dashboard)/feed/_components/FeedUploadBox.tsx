@@ -1,7 +1,13 @@
 "use client";
 
+import React, { useRef, useState } from "react";
 import axios from "axios";
+import Compressor from "compressorjs";
+import Image from "next/image";
+import toast from "react-hot-toast";
+
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 import {
   Dialog,
   DialogContent,
@@ -9,18 +15,13 @@ import {
   DialogTrigger,
   DialogClose
 } from "@/components/ui/dialog";
-import Image from "next/image";
-import React, { LegacyRef, useRef, useState } from "react";
-import { BiSolidVideos } from "react-icons/bi";
+
 import { FaImages } from "react-icons/fa";
 import { useMutation } from "@tanstack/react-query";
 import { app } from "@/firebase.js";
-import { getDownloadURL, getStorage, ref, uploadBytes, uploadBytesResumable } from "firebase/storage";
-import Compressor from "compressorjs";
-import toast from "react-hot-toast";
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { NewPost } from "@/typings";
-import { Progress } from "@/components/ui/progress";
 
 function FeedUploadBox() {
 
@@ -40,13 +41,8 @@ function FeedUploadBox() {
       },
     });
 
-
-
   const handleUploadPost = async (e: React.FormEvent) => {
     e.preventDefault();
-    // const response = await axios.post("http://localhost:5000/posts", { desc, imgUrl: "something" }, { withCredentials: true });
-
-    // console.log(response)
     new Compressor(file, {
       quality: 0.5,
       success(result: any) {
@@ -55,35 +51,16 @@ function FeedUploadBox() {
         const storageRef = ref(storage, fileName);
         const uploadTask = uploadBytesResumable(storageRef, result);
 
-        // Register three observers:
-        // 1. 'state_changed' observer, called any time the state changes
-        // 2. Error observer, called on failure
-        // 3. Completion observer, called on successful completion
         uploadTask.on('state_changed',
           (snapshot) => {
-            // Observe state change events such as progress, pause, and resume
-            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
             setUploadState(true);
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             setUploadProgress(progress);
-
-            // handle Uploading state
-            // switch (snapshot.state) {
-            //   case 'paused':
-            //     setUploadStatus("Paused")
-            //     setUploadState(false);
-            //     break;
-            //   case 'running':
-            //     setUploadStatus("Uploading")
-            //     break;
-            // }
           },
           (error) => {
             console.log(error)
           },
           () => {
-            // Handle successful uploads on complete
-            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
               setUploadState(false)
               setUploadProgress(null);
@@ -93,20 +70,17 @@ function FeedUploadBox() {
             });
           }
         );
-
       },
       error(err) {
         toast.error(err.message);
       },
     });
-
   };
 
   const clearFileInput = () => {
     setDesc("");
-    setFile(undefined); // Clear the file state
-    setPreviewUrl(""); // Clear the preview URL if you're using it
-    // Assuming you have a ref to your file input, you can reset its value like this:
+    setFile(undefined);
+    setPreviewUrl("");
     if (formRef.current) {
       const fileInput: any = formRef.current.querySelector('input[type="file"]');
       if (fileInput) fileInput.value = "";
@@ -121,7 +95,6 @@ function FeedUploadBox() {
       setPreviewUrl(newPreviewUrl);
     }
   };
-
 
   return (
     <div className="flex shadow-lg flex-col w-full rounded-md justify-center p-2 items-center bg-slate-50">
@@ -144,7 +117,6 @@ function FeedUploadBox() {
             <form
               ref={formRef}
               onSubmit={(e) => handleUploadPost(e)}
-              encType="multipart/form-data"
             >
               <h3 className="font-medium text-2xl">Share new Post</h3>
               <textarea
