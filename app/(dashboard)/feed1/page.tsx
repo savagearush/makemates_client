@@ -12,7 +12,7 @@ import { BsMessenger } from "react-icons/bs";
 import { AiFillLike } from "react-icons/ai";
 import { TbHttpPost } from "react-icons/tb";
 import { FaBookmark } from "react-icons/fa6";
-import Post from "./_component/Post";
+import Post from "../../../components/Post";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();

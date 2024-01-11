@@ -1,19 +1,23 @@
 "use client";
 
+import React from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react'
+import Posts from '@/components/Posts';
+
+
 import { AiFillLike } from 'react-icons/ai';
 import { BsMessenger } from 'react-icons/bs';
 import { FaBookmark, FaUserFriends } from 'react-icons/fa';
 import { TbHttpPost } from 'react-icons/tb';
+
 import FeedUploadBox from './_components/FeedUploadBox';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 function Page() {
 
-
   
+
+
   const leftSidebarNavigations = [
     {
       name: "Mate",
@@ -42,7 +46,6 @@ function Page() {
     },
   ];
 
-  const queryClient = new QueryClient();
 
   return (
     <>
@@ -83,9 +86,8 @@ function Page() {
       </div>
 
       <div className="flex gap-4 flex-col w-[500px] ml-[330px]">
-        <QueryClientProvider client={queryClient}>
-          <FeedUploadBox />
-        </QueryClientProvider>
+        <FeedUploadBox />
+        <Posts />
       </div>
     </>
   )
