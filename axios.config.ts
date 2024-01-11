@@ -11,11 +11,12 @@ export async function CreateNewUser(inputData: SignUpInputType) {
 
 
 export async function SignInUser(inputData: LoginInputType) {
-  const {data} = await axios.post(API_ENDPOINT+ "/user/login", inputData);
-  return data;
+  const response = await axios.post(API_ENDPOINT+ "/user/login", inputData, {withCredentials : true});
+  return response.data;
 }
 
 export async function getUserById(currentUser : {_id : number}) {
   const {data} = await axios.post(API_ENDPOINT+ "/user/me", currentUser);
+  
   return data;
 }

@@ -6,7 +6,7 @@ import { Dispatch, createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
-export function AuthContextProvider({
+export default function AuthContextProvider({
   children,
 }: {
   children: React.ReactNode;
@@ -29,18 +29,15 @@ export function AuthContextProvider({
     }
   };
 
-  
-
   const login = async (inputs: LoginInputType) => {
     // Correct type
+    console.log(inputs);
     try {
       const response = await SignInUser(inputs);
-      console.log(response);
-      if (response.status === 200) {
-        setCurrentUser(response.data); // Set current user state
-        router.push("/feed");
-      }
-    } catch (error) {
+      setCurrentUser(response._id); // Set current user state
+      router.push("/feed");
+    }
+    catch (error) {
       // Handle error
       console.error(error);
     }

@@ -8,6 +8,11 @@ export interface SignUpInputType {
   year: string;
 }
 
+interface NewPost {
+  desc: string;
+  imgUrl: string;
+}
+
 interface LoginInputType {
   email: string;
   password: string;
