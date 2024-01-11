@@ -192,10 +192,6 @@ function FeedUploadBox() {
             </div>
           </DialogContent>
         </Dialog>
-        <Button variant={"ghost"} className="flex gap-2">
-          <BiSolidVideos />
-          Add Videos
-        </Button>
       </div>
     </div>
   );
