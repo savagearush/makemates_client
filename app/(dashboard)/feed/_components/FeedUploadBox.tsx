@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/dialog";
 
 import { FaImages } from "react-icons/fa";
-import { useMutation } from "@tanstack/react-query";
+import { QueryClient, useMutation } from "@tanstack/react-query";
 import { app } from "@/firebase.js";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
@@ -31,6 +31,8 @@ function FeedUploadBox() {
   const [uploadState, setUploadState] = useState<boolean>(false)
   const [uploadProgress, setUploadProgress] = useState<number | null>(null)
 
+  const queryClient = new QueryClient();
+
   const formRef = useRef<HTMLFormElement>(null);
   const closeButton = useRef<HTMLButtonElement>(null);
 
@@ -39,6 +41,12 @@ function FeedUploadBox() {
       mutationFn: (newPost: NewPost) => {
         return axios.post("http://localhost:5000/posts", newPost, { withCredentials: true });
       },
+
+      onSuccess: () => {
+        // Invalidate and refetch
+        queryClient.invalidateQueries();
+      },
+
     });
 
   const handleUploadPost = async (e: React.FormEvent) => {

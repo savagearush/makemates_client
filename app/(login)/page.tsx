@@ -15,13 +15,12 @@ function Login() {
     password: "",
   });
 
-  const { login }: any = useContext<AuthContextType | null>(AuthContext);
+  const { userLogin }: any = useContext<AuthContextType | null>(AuthContext);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    login(inputs);
+    userLogin(inputs);
     // showing alert to user
-
   };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,7 +62,7 @@ function Login() {
           </Button>
         </form>
         <p>
-          Don't have account ? <Signup />
+          {`Don't have account? `}<Signup />
         </p>
       </div>
     </div>

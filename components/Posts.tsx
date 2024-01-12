@@ -1,4 +1,4 @@
-import React, from 'react'
+import React from 'react'
 import { fetchUserPosts } from '@/axios.config';
 import { useQuery } from '@tanstack/react-query';
 import Post from './Post';

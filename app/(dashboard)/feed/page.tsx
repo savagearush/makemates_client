@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react'
+import React, { useContext } from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
 import Posts from '@/components/Posts';
@@ -12,10 +12,9 @@ import { FaBookmark, FaUserFriends } from 'react-icons/fa';
 import { TbHttpPost } from 'react-icons/tb';
 
 import FeedUploadBox from './_components/FeedUploadBox';
+import { AuthContext } from '@/context/AuthContext';
 
 function Page() {
-
-  
 
 
   const leftSidebarNavigations = [
@@ -46,7 +45,6 @@ function Page() {
     },
   ];
 
-
   return (
     <>
       <div className="fixed top-[100px] w-[300px] flex flex-col gap-4">
@@ -60,7 +58,7 @@ function Page() {
           />
           <div className="flex flex-col">
             <div className="font-medium text-sm">Arush Sharma</div>
-            <div className="text-xs text-muted-foreground">GhostRider</div>
+            {/* <div className="text-xs text-muted-foreground">GhostRider</div> */}
           </div>
         </div>
 

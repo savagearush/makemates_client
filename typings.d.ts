@@ -8,19 +8,19 @@ export interface SignUpInputType {
   year: string;
 }
 
-interface NewPost {
+export interface NewPost {
   desc: string;
   imgUrl: string;
 }
 
-interface LoginInputType {
+export interface LoginInputType {
   email: string;
   password: string;
 }
 
-interface AuthContextType {
+export type AuthContextType = {
   currentUser: { _id: string };
   setCurrentUser: Dispatch<any>;
-  signup: (inputs: SignUpInputType) => void;
-  login: (inputs: LoginInputType) => void; // Correct type
-}
+  userSignUp: (inputs: SignUpInputType) => void;
+  userLogin: (inputs: LoginInputType) => void; // Correct type
+};
