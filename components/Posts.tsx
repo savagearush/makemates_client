@@ -17,7 +17,6 @@ function Posts() {
         return <span>Error: {error.message}</span>
     }
 
-    console.log(data);
     return (
         <div className='w-full flex flex-col gap-4'>
             {data.map((post: any) => { return <Post key={post.id} caption={post.desc} mediaUrl={post.media_url} postDate={post.date} /> })}

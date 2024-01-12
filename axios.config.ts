@@ -15,11 +15,13 @@ export async function SignInUser(inputData: LoginInputType) {
   return response.data;
 }
 
-export async function getUserById(currentUser: { _id: number }) {
-  const { data } = await axios.post(API_ENDPOINT + "/user/me", currentUser);
-
+export async function getUserDataById() {
+  const { data } = await axios.get(API_ENDPOINT + "/user/me", {
+    withCredentials: true,
+  });
   return data;
 }
+
 export async function fetchUserPosts() {
   const { data } = await axios.get(API_ENDPOINT + "/posts", {
     withCredentials: true,

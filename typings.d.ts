@@ -24,3 +24,15 @@ export type AuthContextType = {
   userSignUp: (inputs: SignUpInputType) => void;
   userLogin: (inputs: LoginInputType) => void; // Correct type
 };
+
+// interface UserData {
+//   name: string;
+//   email: string;
+//   password: string;
+//   dob: string;
+//   gender: string;
+//   mobile_no: string;
+//   country: string;
+//   state: string;
+//   city: string;
+// }

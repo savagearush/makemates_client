@@ -79,7 +79,7 @@ function Navbar() {
               <FaComments className="text-xl text-blue-600" />
             </li>
             <li className="cursor-pointer flex items-center justify-between p-2 hover:bg-purple-100 rounded-md">
-              <Link href="/" className="font-medium text-md">
+              <Link href="/settings" className="font-medium text-md">
                 Settings
               </Link>
               <IoSettingsSharp className="text-xl text-blue-600" />
@@ -97,11 +97,11 @@ function Navbar() {
   ];
 
   return (
-    <div className="z-[99999] w-[1200px] shadow-[0px_2px_15px_0px_#001C43] h-[50px] px-2 rounded-full  text-white bg-[#003789] flex items-center justify-center gap-32">
+    <div className=" w-[1200px] shadow-[0px_2px_15px_0px_#001C43] h-[50px] px-2 rounded-full  text-white bg-[#003789] flex items-center justify-center gap-32">
       <div className="flex-1 flex items-center justify-center">
-        <h1 className={`text-xl font-extrabold`}>
+        <Link href="/feed" className={`text-xl font-extrabold`}>
           Makemates
-        </h1>
+        </Link>
       </div>
       <div className="flex-1 flex items-center justify-center">
         <NavigationMenu>
