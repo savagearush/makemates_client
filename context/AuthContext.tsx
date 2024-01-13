@@ -31,7 +31,6 @@ export default function AuthContextProvider({
 
   const userLogin = async (inputs: LoginInputType) => {
     // Correct type
-    console.log(inputs);
     try {
       const response = await SignInUser(inputs);
       setCurrentUser(response._id); // Set current user state
