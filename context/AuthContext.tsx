@@ -1,7 +1,7 @@
 "use client";
 import { CreateNewUser, SignInUser } from "@/axios.config";
 import { AuthContextType, LoginInputType, SignUpInputType } from "@/typings";
-import { useRouter } from "next/navigation"; // Correct module name
+import { useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext<AuthContextType | null>(null);
@@ -35,8 +35,7 @@ export default function AuthContextProvider({
       const response = await SignInUser(inputs);
       setCurrentUser(response._id); // Set current user state
       router.push("/feed");
-    }
-    catch (error) {
+    } catch (error) {
       // Handle error
       console.error(error);
     }

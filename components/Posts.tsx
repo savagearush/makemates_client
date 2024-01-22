@@ -1,27 +1,46 @@
-import React from 'react'
-import { fetchUserPosts } from '@/axios.config';
-import { useQuery } from '@tanstack/react-query';
-import Post from './Post';
+import React from "react";
+import { fetchUserPosts } from "@/axios.config";
+import { useQuery } from "@tanstack/react-query";
+import Post from "./Post";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 function Posts() {
-    const { isPending, isError, data, error } = useQuery({
-        queryKey: ['newPost'],
-        queryFn: fetchUserPosts,
-    })
+  const { isPending, isError, data, error }: any = useQuery({
+    queryKey: ["newPost"],
+    queryFn: fetchUserPosts,
+  });
 
-    if (isPending) {
-        return <span>Loading...</span>
+  const router = useRouter();
+
+  if (isPending) {
+    return <span>Loading...</span>;
+  }
+
+  if (isError) {
+    if (error.response.status == 301) {
+      toast.error("Session Expired ! Logged In Now");
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
     }
+    return <span>Error: {error.message}</span>;
+  }
 
-    if (isError) {
-        return <span>Error: {error.message}</span>
-    }
-
-    return (
-        <div className='w-full flex flex-col gap-4'>
-            {data.map((post: any) => { return <Post key={post.id} caption={post.desc} mediaUrl={post.media_url} postDate={post.date} /> })}
-        </div>
-    )
+  return (
+    <div className="w-full flex flex-col gap-4">
+      {data.map((post: any) => {
+        return (
+          <Post
+            key={post.id}
+            caption={post.desc}
+            mediaUrl={post.media_url}
+            postDate={post.date}
+          />
+        );
+      })}
+    </div>
+  );
 }
 
-export default Posts
+export default Posts;

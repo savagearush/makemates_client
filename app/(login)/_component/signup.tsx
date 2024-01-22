@@ -9,8 +9,7 @@ import { CreateNewUser } from "@/axios.config";
 import { AuthContext } from "@/context/AuthContext";
 
 function Signup() {
-
-  const { userSignUp }: any = useContext<AuthContextType | null>(AuthContext)
+  const { userSignUp }: any = useContext<AuthContextType | null>(AuthContext);
 
   const [inputs, setInputs] = useState({
     name: "",
