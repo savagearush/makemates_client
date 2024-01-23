@@ -33,6 +33,7 @@ function Posts() {
         return (
           <Post
             key={post.id}
+            name={post.name}
             caption={post.desc}
             mediaUrl={post.media_url}
             postDate={post.date}

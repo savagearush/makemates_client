@@ -1,22 +1,19 @@
 "use client";
 
-import React, { useContext } from 'react'
-import Image from 'next/image';
-import Link from 'next/link';
-import Posts from '@/components/Posts';
+import React, { useContext } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import Posts from "@/components/Posts";
 
+import { AiFillLike } from "react-icons/ai";
+import { BsMessenger } from "react-icons/bs";
+import { FaBookmark, FaUserFriends } from "react-icons/fa";
+import { TbHttpPost } from "react-icons/tb";
 
-import { AiFillLike } from 'react-icons/ai';
-import { BsMessenger } from 'react-icons/bs';
-import { FaBookmark, FaUserFriends } from 'react-icons/fa';
-import { TbHttpPost } from 'react-icons/tb';
-
-import FeedUploadBox from './_components/FeedUploadBox';
-import { AuthContext } from '@/context/AuthContext';
+import FeedUploadBox from "./_components/FeedUploadBox";
+import { AuthContext } from "@/context/AuthContext";
 
 function Page() {
-
-
   const leftSidebarNavigations = [
     {
       name: "Mate",
@@ -88,7 +85,7 @@ function Page() {
         <Posts />
       </div>
     </>
-  )
+  );
 }
 
-export default Page
+export default Page;
