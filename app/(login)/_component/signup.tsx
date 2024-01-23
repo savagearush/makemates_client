@@ -9,7 +9,8 @@ import { CreateNewUser } from "@/axios.config";
 import { AuthContext } from "@/context/AuthContext";
 
 function Signup() {
-  const { signup } = useContext<AuthContextType | null>(AuthContext);
+  const { userSignUp }: any = useContext<AuthContextType | null>(AuthContext);
+
   const [inputs, setInputs] = useState({
     name: "",
     email: "",
@@ -45,7 +46,7 @@ function Signup() {
 
   const handleSignUpSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signup(inputs);
+    userSignUp(inputs);
   };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

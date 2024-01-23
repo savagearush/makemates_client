@@ -1,12 +1,11 @@
 "use client";
 
-import React, { use, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import Image from "next/image";
 import Signup from "./_component/signup";
 import InputWithLabel from "./_component/InputWithLabel";
 import { Button } from "@/components/ui/button";
-import toast from "react-hot-toast";
-import { AuthContextType, LoginInputType } from "@/typings";
+import { AuthContextType } from "@/typings";
 import { AuthContext } from "@/context/AuthContext";
 
 function Login() {
@@ -15,13 +14,12 @@ function Login() {
     password: "",
   });
 
-  const { login }: any = useContext<AuthContextType | null>(AuthContext);
+  const { userLogin }: any = useContext<AuthContextType | null>(AuthContext);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    login(inputs);
+    userLogin(inputs);
     // showing alert to user
-
   };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,7 +61,8 @@ function Login() {
           </Button>
         </form>
         <p>
-          Don't have account ? <Signup />
+          {`Don't have account? `}
+          <Signup />
         </p>
       </div>
     </div>

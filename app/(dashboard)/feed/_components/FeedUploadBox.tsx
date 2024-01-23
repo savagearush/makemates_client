@@ -17,14 +17,13 @@ import {
 } from "@/components/ui/dialog";
 
 import { FaImages } from "react-icons/fa";
-import { useMutation } from "@tanstack/react-query";
+import { QueryClient, useMutation } from "@tanstack/react-query";
 import { app } from "@/firebase.js";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { NewPost } from "@/typings";
 
 function FeedUploadBox() {
-
   const [desc, setDesc] = useState<string>("");
   const [file, setFile] = useState<any>();
   const [previewUrl, setPreviewUrl] = useState<string | StaticImport>("");
@@ -38,13 +37,13 @@ function FeedUploadBox() {
     , Error, NewPost>({
       mutationFn: (newPost: NewPost) => {
         return axios.post("http://localhost:5000/posts", newPost, { withCredentials: true });
-      },
+      }
     });
 
   const handleUploadPost = async (e: React.FormEvent) => {
     e.preventDefault();
     new Compressor(file, {
-      quality: 0.5,
+      quality: 0.2,
       success(result: any) {
         const storage = getStorage(app);
         const fileName = result.name + Date.now() + "." + result.type.split("/")[1];

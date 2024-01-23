@@ -1,17 +1,19 @@
 "use client";
 
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react'
-import { AiFillLike } from 'react-icons/ai';
-import { BsMessenger } from 'react-icons/bs';
-import { FaBookmark, FaUserFriends } from 'react-icons/fa';
-import { TbHttpPost } from 'react-icons/tb';
-import FeedUploadBox from './_components/FeedUploadBox';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import React, { useContext } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import Posts from "@/components/Posts";
+
+import { AiFillLike } from "react-icons/ai";
+import { BsMessenger } from "react-icons/bs";
+import { FaBookmark, FaUserFriends } from "react-icons/fa";
+import { TbHttpPost } from "react-icons/tb";
+
+import FeedUploadBox from "./_components/FeedUploadBox";
+import { AuthContext } from "@/context/AuthContext";
 
 function Page() {
-
   const leftSidebarNavigations = [
     {
       name: "Mate",
@@ -40,8 +42,6 @@ function Page() {
     },
   ];
 
-  const queryClient = new QueryClient();
-
   return (
     <>
       <div className="fixed top-[100px] w-[300px] flex flex-col gap-4">
@@ -55,7 +55,7 @@ function Page() {
           />
           <div className="flex flex-col">
             <div className="font-medium text-sm">Arush Sharma</div>
-            <div className="text-xs text-muted-foreground">GhostRider</div>
+            {/* <div className="text-xs text-muted-foreground">GhostRider</div> */}
           </div>
         </div>
 
@@ -81,12 +81,11 @@ function Page() {
       </div>
 
       <div className="flex gap-4 flex-col w-[500px] ml-[330px]">
-        <QueryClientProvider client={queryClient}>
-          <FeedUploadBox />
-        </QueryClientProvider>
+        <FeedUploadBox />
+        <Posts />
       </div>
     </>
-  )
+  );
 }
 
-export default Page
+export default Page;

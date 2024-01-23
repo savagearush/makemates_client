@@ -1,8 +1,8 @@
 "use client";
 import { CreateNewUser, SignInUser } from "@/axios.config";
 import { AuthContextType, LoginInputType, SignUpInputType } from "@/typings";
-import { useRouter } from "next/navigation"; // Correct module name
-import { Dispatch, createContext, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -17,7 +17,7 @@ export default function AuthContextProvider({
 
   const router = useRouter();
 
-  const signup = async (inputs: SignUpInputType) => {
+  const userSignUp = async (inputs: SignUpInputType) => {
     try {
       const response = await CreateNewUser(inputs);
       if (response.status === 200) {
@@ -29,15 +29,13 @@ export default function AuthContextProvider({
     }
   };
 
-  const login = async (inputs: LoginInputType) => {
+  const userLogin = async (inputs: LoginInputType) => {
     // Correct type
-    console.log(inputs);
     try {
       const response = await SignInUser(inputs);
       setCurrentUser(response._id); // Set current user state
       router.push("/feed");
-    }
-    catch (error) {
+    } catch (error) {
       // Handle error
       console.error(error);
     }
@@ -50,7 +48,7 @@ export default function AuthContextProvider({
 
   return (
     <AuthContext.Provider
-      value={{ currentUser, setCurrentUser, login, signup }}
+      value={{ currentUser, setCurrentUser, userLogin, userSignUp }}
     >
       {children}
     </AuthContext.Provider>
