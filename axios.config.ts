@@ -12,10 +12,8 @@ export async function SignInUser(inputData: LoginInputType) {
   const response = await axios.post(API_ENDPOINT + "/user/login", inputData, {
     withCredentials: true,
   });
-  console.log(response);
   return response.data;
 }
-
 export async function getUserDataById() {
   const { data } = await axios.get(API_ENDPOINT + "/user/me", {
     withCredentials: true,

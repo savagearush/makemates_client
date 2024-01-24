@@ -2,6 +2,7 @@ import { AuthContext } from "@/context/AuthContext";
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
 
+// Check user if User Follow to Other user
 export function useFollowed(friendId: number) {
   const [isFollowed, setIsFollowed] = useState(false);
   const { currentUser }: any = useContext(AuthContext);
